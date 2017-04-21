@@ -34,10 +34,21 @@
 
     }
     $.attachInfiniteScroll = function(infiniteContent) {
-        $.getScroller(infiniteContent).on('scroll', handleInfiniteScroll);
+        // $.getScroller(infiniteContent).on('scroll', handleInfiniteScroll);
+        var len = infiniteContent.length;
+        //针对多个content tab页的无限滚动
+        for(var i = 0; i < len; i++) {
+            if(!infiniteContent.eq(i).hasClass("infinite-scroll")) continue;
+            $.getScroller(infiniteContent.eq(i)).on('scroll', handleInfiniteScroll);
+        }
     };
     $.detachInfiniteScroll = function(infiniteContent) {
-        $.getScroller(infiniteContent).off('scroll', handleInfiniteScroll);
+        // $.getScroller(infiniteContent).off('scroll', handleInfiniteScroll);
+        var len = infiniteContent.length;
+        for(var i = 0; i < len; i++) {
+            if(!infiniteContent.eq(i).hasClass("infinite-scroll")) continue;
+            $.getScroller(infiniteContent.eq(i)).off('scroll', handleInfiniteScroll);
+        }
     };
 
     $.initInfiniteScroll = function(pageContainer) {
@@ -49,7 +60,7 @@
         pageContainer.forEach(function(v){
             if($(v).hasClass('infinite-scroll-top')){
                 var height = v.scrollHeight - v.clientHeight;
-                $(v).scrollTop(height);     
+                $(v).scrollTop(height);
             }
         });
         function detachEvents() {

@@ -1,10 +1,15 @@
 + function($) {
     'use strict';
     $.initPullToRefresh = function(pageContainer) {
-        var eventsTarget = $(pageContainer);
-        if (!eventsTarget.hasClass('pull-to-refresh-content')) {
-            eventsTarget = eventsTarget.find('.pull-to-refresh-content');
-        }
+        // var eventsTarget = $(pageContainer);
+        // if (!eventsTarget.hasClass('pull-to-refresh-content')) {
+        //     eventsTarget = eventsTarget.find('.pull-to-refresh-content');
+        // }
+
+        // 这里直接将refresh事件绑定到.pull-to-refresh-content元素上，
+        // 防止tab页多个content时添加不必要的refresh事件
+        var eventsTarget = $('.pull-to-refresh-content');
+
         if (!eventsTarget || eventsTarget.length === 0) return;
 
         var isTouched, isMoved, touchesStart = {},
